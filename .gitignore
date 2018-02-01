@@ -6,5 +6,7 @@ node_modules
 
 **/node_modules
 **/build
+**/dist
 
-examples/test/.cache
+/examples/test/.cache
+
