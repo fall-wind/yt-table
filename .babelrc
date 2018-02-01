@@ -1,0 +1,21 @@
+{
+	"presets": [
+		"react",
+		[
+			"env",
+			{
+				"rollup": {
+					"plugins": ["external-helpers"]
+				},
+				"modules": false,
+				"loose": true,
+				"debug": true
+			}
+		]
+	],
+	"plugins": [
+		"transform-class-properties",
+		"transform-react-jsx",
+		"syntax-jsx"
+	]
+}

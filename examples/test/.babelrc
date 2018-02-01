@@ -1,0 +1,19 @@
+{
+	"presets": [
+		"react",
+		[
+			"env",
+			{
+				"modules": false,
+				"loose": true,
+				"debug": true
+			}
+		]
+	],
+	"plugins": [
+        "transform-object-rest-spread",
+		"transform-class-properties",
+		"transform-react-jsx",
+		"syntax-jsx"
+	]
+}
