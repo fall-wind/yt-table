@@ -1,6 +1,6 @@
 {
   "name": "yt-table",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "a table component for yt",
   "main": "./lib/ytTable.js",
   "scripts": {
