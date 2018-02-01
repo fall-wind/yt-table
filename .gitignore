@@ -9,4 +9,4 @@ node_modules
 **/dist
 
 /examples/test/.cache
-
+/examples/test/dist
