@@ -20930,7 +20930,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var data = [{ name: 'yt1111111111111111111111111111', age: '25', id: 1, sex: '男' }, { name: 'yt2', age: '25', id: 2, sex: '男' }, { name: 'yt3', age: '25', id: 3, sex: '男' }, { name: 'yt3', age: '25', id: 4, sex: '男' }, { name: 'yt3', age: '25', id: 5, sex: '男' }, { name: 'yt3', age: '25', id: 6, sex: '男' }, { name: 'yt3', age: '25', id: 7, sex: '男' }];
+var data = [{ name: 'yt1111111111111111111111111111', age: '25', id: 1, sex: '男', height: '174' }, { name: 'yt2', age: '25', id: 2, sex: '男', height: '174' }, { name: 'yt3', age: '25', id: 3, sex: '男', height: '174' }, { name: 'yt3', age: '25', id: 4, sex: '男', height: '174' }, { name: 'yt3', age: '25', id: 5, sex: '男', height: '174' }, { name: 'yt3', age: '25', id: 6, sex: '男', height: '174' }, { name: 'yt3', age: '25', id: 7, sex: '男', height: '175' }];
 
 var columns = [{
 	title: '姓名',
@@ -20946,6 +20946,13 @@ var columns = [{
 	title: '性别',
 	key: 'sex',
 	type: 'select',
+	fatherTitle: {
+		title: '基本信息'
+	}
+}, {
+	title: '身高',
+	key: 'height',
+	type: 'input',
 	fatherTitle: {
 		title: '基本信息'
 	}

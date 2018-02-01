@@ -5,13 +5,13 @@ import Table from '../../lib/ytTable'
 import 'normalize.css'
 
 const data = [
-	{ name: 'yt1111111111111111111111111111', age: '25', id: 1, sex: '男' },
-	{ name: 'yt2', age: '25', id: 2, sex: '男' },
-	{ name: 'yt3', age: '25', id: 3, sex: '男' },
-	{ name: 'yt3', age: '25', id: 4, sex: '男' },
-	{ name: 'yt3', age: '25', id: 5, sex: '男' },
-	{ name: 'yt3', age: '25', id: 6, sex: '男' },
-	{ name: 'yt3', age: '25', id: 7, sex: '男' },
+	{ name: 'yt1111111111111111111111111111', age: '25', id: 1, sex: '男', height: '174' },
+	{ name: 'yt2', age: '25', id: 2, sex: '男', height: '174' },
+	{ name: 'yt3', age: '25', id: 3, sex: '男', height: '174' },
+	{ name: 'yt3', age: '25', id: 4, sex: '男', height: '174' },
+	{ name: 'yt3', age: '25', id: 5, sex: '男', height: '174' },
+	{ name: 'yt3', age: '25', id: 6, sex: '男', height: '174' },
+	{ name: 'yt3', age: '25', id: 7, sex: '男', height: '175' },
 ]
 
 const columns = [
@@ -31,6 +31,14 @@ const columns = [
 		title: '性别',
 		key: 'sex',
 		type: 'select',
+		fatherTitle: {
+			title: '基本信息',
+		},
+	},
+	{
+		title: '身高',
+        key: 'height',
+        type: 'input',
 		fatherTitle: {
 			title: '基本信息',
 		},
