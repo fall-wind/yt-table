@@ -2,6 +2,7 @@
 @yt-table-perfix: yt-table;
 @bodyBgColor: rgb(236, 246, 253);
 @headerBgColor: rgb(249, 249, 249);
+@activeBorderColor: #40a9ff;
 * {
     box-sizing: border-box;
 }
@@ -65,9 +66,9 @@
 			&:hover {
 				background-color: @bodyBgColor;
             }
-            &:last-child {
-                border-bottom: 0px;
-            }
+            // &:last-child {
+            //     // border-bottom: 0px;
+            // }
             display: flex;
             flex-direction: row;
 			.@{yt-table-perfix}-row-cell {
@@ -83,6 +84,10 @@
                 .@{yt-table-perfix}-row-cell-content {
                     height: 100%;
                     width: 100%;
+                }
+                &:focus {
+                    // border: 1px solid @activeBorderColor;
+                    outline: -webkit-focus-ring-color auto 2px;
                 }
 			}
         }

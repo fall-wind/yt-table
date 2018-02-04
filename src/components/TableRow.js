@@ -26,12 +26,13 @@ class TableRow extends React.PureComponent {
 				onDoubleClick={this.handleDoubleRowClick}
 				className={`${ytTablePerfix}-row ${isSelectedRow?`${ytTablePerfix}-selected-row`:''}`}
 			>
-				{columns.map(column => {
+				{columns.map((column, index) => {
 					return (
 						<TableCell
 							{...this.props}
 							cellKey={column.key}
-							key={column.key}
+                            key={column.key}
+                            cellIndex={index}
 							column={column}
 						/>
 					)

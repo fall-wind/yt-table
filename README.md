@@ -42,6 +42,34 @@ parcel index.html
 open http://localhost:1234
 ```
 
+### feature
+#### you can use tab to switch focus 
+
+column set type 'input',
+
+#### fatherTitle
+
+```
+{
+    title: 'sex',
+    key: 'sex',
+    type: 'select',
+    fatherTitle: {
+        title: 'base info',
+    },
+    canFocus: true,
+},
+{
+    title: 'height',
+    key: 'height',
+    type: 'input',
+    fatherTitle: {
+        title: 'base info',
+    },
+    canFocus: true,
+},
+```
+
 ### Reference resources
 - [react-data-grid](https://github.com/adazzle/react-data-grid)
 

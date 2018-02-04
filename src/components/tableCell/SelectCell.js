@@ -6,7 +6,6 @@ class SelectCell extends React.Component {
 
     onChange = (e) => {
         const { onCellChange, rowKey, cellKey } = this.props
-        console.log(e.target.value)
         onCellChange && onCellChange(rowKey, cellKey, e.target.value)
     }
 

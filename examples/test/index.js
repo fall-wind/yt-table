@@ -3,9 +3,17 @@ import ReactDOM from 'react-dom'
 import OtherTableShow from './src/OtherTableShow'
 import Table from '../../lib/ytTable'
 import 'normalize.css'
+const { Select } = Table
 
+const Option = Select.Option
 const data = [
-	{ name: 'yt1111111111111111111111111111', age: '25', id: 1, sex: '男', height: '174' },
+	{
+		name: 'yt1111111111111111111111111111',
+		age: '25',
+		id: 1,
+		sex: '男',
+		height: '174',
+	},
 	{ name: 'yt2', age: '25', id: 2, sex: '男', height: '174' },
 	{ name: 'yt3', age: '25', id: 3, sex: '男', height: '174' },
 	{ name: 'yt3', age: '25', id: 4, sex: '男', height: '174' },
@@ -18,7 +26,8 @@ const columns = [
 	{
 		title: '姓名',
 		key: 'name',
-		type: 'input',
+        type: 'input',
+        canFocus: true,
 	},
 	{
 		title: '年龄',
@@ -30,23 +39,27 @@ const columns = [
 	{
 		title: '性别',
 		key: 'sex',
-		type: 'select',
+		type: 'input',
 		fatherTitle: {
 			title: '基本信息',
-		},
+        },
+        canFocus: true,
 	},
 	{
 		title: '身高',
-        key: 'height',
-        type: 'input',
+		key: 'height',
+		type: 'input',
 		fatherTitle: {
 			title: '基本信息',
-		},
+        },
+        canFocus: true,
+        // render(value, record) {
+        //     return <input type="text"/>
+        // }
 	},
 	// { title: '性别', key: 'sex', render(text, record) {
 	//     return (
 	//         <select onChange={e => {
-	//             console.log(e.target.value)
 	//         }}>
 	//             <option value="ss">sss</option>
 	//             <option value="sss">sss</option>
@@ -120,7 +133,6 @@ class TableTest extends React.Component {
 						columns={this.state.columns}
 						onCellChange={this.handleCellChange}
 						handleRowClick={rowKey => {
-							console.log(rowKey, '????')
 						}}
 					/>
 				</div>
@@ -133,7 +145,12 @@ function App(props) {
 	return (
 		<div style={{ marginLeft: 10 }}>
 			<TableTest />
-            {/* <div>other table: react-data-grid </div>
+			<div style={{ marginTop: 20 }}>
+				<Select>
+					{[1, 2, 3, 4].map(item => <Option key={item}>{item}</Option>)}
+				</Select>
+			</div>
+			{/* <div>other table: react-data-grid </div>
             <OtherTableShow /> */}
 		</div>
 	)

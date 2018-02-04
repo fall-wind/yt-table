@@ -25,13 +25,14 @@ export default class TableBody extends React.Component {
         const { currentRowKey } = this.state
 		return (
 			<div className={`${ytTablePerfix}-tbody`}>
-				{dataSource.map(record => (
+				{dataSource.map((record, index) => (
 					<TableRow
                         {...this.props}
                         currentRowKey={currentRowKey}
 						key={getRowKey(record)}
 						rowKey={getRowKey(record)}
                         record={record}
+                        rowIndex={index}
                         changeCurrentRowKey={this.changeCurrentRowKey}
 					/>
 				))}
