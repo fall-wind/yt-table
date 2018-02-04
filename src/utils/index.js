@@ -34,10 +34,8 @@ export const getNextFocus = (dom, selector) => {
 	const pIndex = getDomIndex(pNode, `.${ytTablePerfix}-row`)
 	let nextNode = null
 	if (selfIndex < cfaLen - 1) {
-        console.error('222222')
 		nextNode = canFoucesArr[selfIndex + 1]
 	} else {
-        console.error('333333')
 		const nextRow = document.querySelector(
 			`.${ytTablePerfix}-row:nth-child(${pIndex + 2})`,
 		)

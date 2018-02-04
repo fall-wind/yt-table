@@ -4,24 +4,28 @@ import './select.less'
 const prefix = 'yt-select'
 
 class Select extends React.Component {
-	state = {}
+	state = {
+		focused: false,
+	}
+
+	setFocused = val => this.setState({ focused: val })
 
 	handleFocus = () => {
-		if (this._focused) {
+		if (this.state.focused) {
 			return
-		}
-		this._focused = true
+        }
+        this.setFocused(true)
 	}
 
 	handleBlur = () => {
-		this._focused = false
+		this.setFocused(false)
 	}
 
-	handleKeyDown = e => {
-	}
+	handleKeyDown = e => {}
 
 	render() {
-		const { children } = this.props
+        const { children } = this.props
+        const { focused } = this.state
 		return (
 			<div
 				onKeyDown={this.handleKeyDown}
@@ -30,16 +34,22 @@ class Select extends React.Component {
 				onFocus={this.handleFocus}
 				onBlur={this.handleBlur}
 				className={`${prefix} ${
-					this._focused ? `${prefix}-focused` : ''
+					focused ? `${prefix}-focused` : ''
 				}`}
 			>
-                <ul className={`${prefix}-drop-down ${this._focused ? '' : `${prefix}-display-none`}`}>
-                    {React.Children.map(children, function(child, index) {
-                        return <div className={`${prefix}-drop-down-item`}>
-                        {child}
-                        </div>
-                    })}
-                </ul>
+				<ul
+					className={`${prefix}-drop-down ${
+						focused ? '' : `${prefix}-display-none`
+					}`}
+				>
+					{React.Children.map(children, function(child, index) {
+						return (
+							<div className={`${prefix}-drop-down-item`}>
+								{child}
+							</div>
+						)
+					})}
+				</ul>
 			</div>
 		)
 	}
