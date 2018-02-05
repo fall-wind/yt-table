@@ -12,7 +12,7 @@ class Table extends React.Component {
 		this.state = {}
 	}
 
-	listener = e => {
+	handleKeyDown = e => {
 		if (e.keyCode == 9) {
 			e.preventDefault()
 			const activeDom = document.querySelector(
@@ -34,11 +34,7 @@ class Table extends React.Component {
 		}
 	}
 
-	componentDidMount() {
-		document.addEventListener('keydown', this.listener)
-	}
-
-	componentWillUnmount() {}
+    componentWillUnmount() {}
 
 	render() {
 		return (

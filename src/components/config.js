@@ -1,3 +1,4 @@
 export default {
-    "ytTablePerfix": 'yt-table',
+	ytTablePerfix: 'yt-table',
+	canFocusType: ['select', 'input'],
 }

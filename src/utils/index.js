@@ -3,8 +3,20 @@ const { ytTablePerfix } = config
 
 export const triggerTableCellClick = dom => {
 	if (dom) {
-		dom.click()
-		dom.childNodes[0].childNodes[0].click()
+        dom.click()
+        let subSubChild = null
+        try {
+            subSubChild = dom.childNodes[0].childNodes[0]
+        } catch (error) {
+            
+        }
+		if (subSubChild) {
+            subSubChild.click()
+            if (subSubChild.className.indexOf('select')) {
+                subSubChild.click()
+                subSubChild.focus()
+            }
+        }
 	}
 }
 

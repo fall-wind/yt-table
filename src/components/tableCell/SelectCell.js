@@ -1,28 +1,30 @@
 import React from 'react'
+import {tableCellChildHoc} from '../../hoc'
 import { Select } from '../../common'
 import config from '../config'
 const { ytTablePerfix } = config
 
 const Option = Select.Option
 // just test
-
+@tableCellChildHoc('select')
 class SelectCell extends React.Component {
-	onChange = e => {
+	onChange = (val, option) => {
 		const { onCellChange, rowKey, cellKey } = this.props
-		onCellChange && onCellChange(rowKey, cellKey, e.target.value)
+		onCellChange && onCellChange(rowKey, cellKey, val, option)
 	}
 
 	render() {
-		const { value } = this.props
+		const { value, column } = this.props
+		const { options } = column
 
 		return (
-			<Select>{[1, 2, 3, 4].map(it => <Option>{it}</Option>)}</Select>
-			// <select value={value} className={`${ytTablePerfix}-cell-select`} onChange={this.onChange}>
-			//     <option value="ss">sss</option>
-			//     <option value="sss">sss</option>
-			//     <option value="ssss">ssss</option>
-			//     <option value="sssss">sssss</option>
-			// </select>
+			<Select onSelect={this.onChange} {...this.props}>
+				{options.map(it => (
+					<Option value={it.value} key={it.key}>
+						{it.value}
+					</Option>
+				))}
+			</Select>
 		)
 	}
 }

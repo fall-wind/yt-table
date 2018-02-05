@@ -32,6 +32,8 @@
     "rollup-watch": "^4.3.1"
   },
   "dependencies": {
-    "prop-types": "^15.6.0"
+    "classnames": "^2.2.5",
+    "prop-types": "^15.6.0",
+    "rc-select": "^7.7.0"
   }
 }

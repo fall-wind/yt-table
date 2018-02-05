@@ -3,7 +3,7 @@ import { tableCellChildHoc } from '../../hoc'
 import config from '../config'
 const { ytTablePerfix } = config
 
-@tableCellChildHoc('aa')
+@tableCellChildHoc('input')
 class Input extends React.Component {
 	constructor(props) {
 		super(props)
