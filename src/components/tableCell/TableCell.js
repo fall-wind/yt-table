@@ -47,33 +47,36 @@ class TableCell extends React.Component {
 
 	static childContextTypes = {
 		setClickedValue: PropTypes.func,
-    }
-    
-    chechIsCanFocusCell = (props) => {
-        const { column, record, rowIndex, cellIndex } = this.props
-        const { width, warp, render, key, canFocus = false } = column
-        return canFocusType.includes(column.type) || canFocus
-    }
+	}
+
+	chechIsCanFocusCell = props => {
+		const { column, record, rowIndex, cellIndex } = props
+		const { width, warp, render, key, canFocus = false } = column
+		return canFocusType.includes(column.type) || canFocus
+	}
 
 	setClickedValue = val => {
 		this.setState({ clicked: val })
 	}
 
 	handleCellClick = () => {
-        if (!this.chechIsCanFocusCell(this.props)) {
-            return
-        }
+		if (!this.chechIsCanFocusCell(this.props)) {
+			return
+		}
 		if (this.state.clicked) {
 			return
 		}
 		this.setClickedValue(true)
 	}
 
+	// do not need set false because it child will do it
 	handleBlur = () => {
-        
-        if (this.chechIsCanFocusCell(this.props)) {
-            this.setClickedValue(false)
-        }
+		// if (this.chechIsCanFocusCell(this.props)) {
+		//     setTimeout(() => {
+		//         this.setClickedValue(false)
+		//     })
+		//     // this.setClickedValue(false)
+		// }
 	}
 
 	render() {
@@ -81,18 +84,18 @@ class TableCell extends React.Component {
 		const { column, record, rowIndex, cellIndex } = props
 		const { width, warp, render, key, canFocus } = column
 		const { clicked } = this.state
+		const checkChildCanFocus =
+			canFocusType.includes(column.type) || canFocus
 		const rowCellCls = {
 			[`${ytTablePerfix}-row-cell`]: true,
-			[`${ytTablePerfix}-can-focus-cell`]:
-                canFocusType.includes(column.type) || canFocus,
-            [`${ytTablePerfix}-active-cell`]: clicked
+			[`${ytTablePerfix}-can-focus-cell`]: checkChildCanFocus,
+			[`${ytTablePerfix}-active-cell`]: clicked,
 		}
 
 		return (
 			<div
 				onClick={this.handleCellClick}
-				// tabIndex={Number(`${rowIndex}${cellIndex}`)}
-				tabIndex="-1"
+				{...(checkChildCanFocus ? { tabIndex: '-1' } : {})}
 				onBlur={this.handleBlur}
 				className={classnames(rowCellCls)}
 				key={key}

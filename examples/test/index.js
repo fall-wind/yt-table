@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import Table from '../../lib/ytTable'
 // import { Select } from 'antd'
 // import Select, { Option } from 'rc-select'
+import Trigger from 'rc-trigger'
 import 'normalize.css'
 
 const { Select } = Table
@@ -11,7 +12,7 @@ const Option = Select.Option
 
 const data = [
 	{
-		name: 'yt1111111111111111111111111111',
+		name: 'yt1111',
 		age: '25',
 		id: 1,
 		sex: '男',
@@ -42,16 +43,13 @@ const columns = [
 	{
 		title: '性别',
 		key: 'sex',
-		// type: 'select',
+		type: 'select',
 		// type: 'input',
 		fatherTitle: {
 			title: '基本信息',
-        },
-        options: [
-            {value: '女', key: '1'},
-            {value: '男', key: '2'},
-        ],
-		// canFocus: true,
+		},
+		options: [{ value: '女', key: '1' }, { value: '男', key: '2' }],
+		canFocus: true,
 	},
 	{
 		title: '身高',
@@ -152,9 +150,19 @@ function App(props) {
 	return (
 		<div style={{ marginLeft: 10 }}>
 			<TableTest />
-			<Select>
+			<Trigger
+				action={['click']}
+				popup={<span>popup</span>}
+				popupAlign={{
+					points: ['tl', 'bl'],
+					offset: [0, 3],
+				}}
+			>
+				<a href="#">hover</a>
+			</Trigger>
+			{/* <Select>
 				{[1, 2, 3, 4].map(it => <Option key={it} value={it}>{it}</Option>)}
-			</Select>
+			</Select> */}
 			{/* <div>other table: react-data-grid </div>
             <OtherTableShow /> */}
 		</div>

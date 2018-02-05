@@ -5,33 +5,35 @@
 .@{prefix} {
     height: 30px;
     line-height: 30px;
-    width: 180px;
+    width: 100%;
     border: 1px solid @borderColor;
     position: relative;
     display: inline-block;
-    .@{prefix}-drop-down {
-        position: absolute;
-        z-index: 999;
-        width: 178px;
-        margin: 0;
-        padding: 0;
-        top: 32px;
-        border-color: #40a9ff;
-        box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
-        .@{prefix}-drop-down-item {
-            padding: 0 12px;
-            line-height: 32px;
-            height: 32px;
-            color: rgba(0,0,0,0.45);
-            font-size: 12px;
-            width: inherit;
-            &:hover {
-                background: #e6f7ff;
-            }
-        }
-        .@{prefix}-drop-down-active-item {
+}
+
+.@{prefix}-drop-down {
+    position: absolute;
+    z-index: 999;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    top: 32px;
+    background: white;
+    border-color: #40a9ff;
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+    .@{prefix}-drop-down-item {
+        padding: 0 12px;
+        line-height: 32px;
+        height: 32px;
+        color: rgba(0,0,0,0.45);
+        font-size: 12px;
+        // width: inherit;
+        &:hover {
             background: #e6f7ff;
         }
+    }
+    .@{prefix}-drop-down-active-item {
+        background: #e6f7ff;
     }
 }
 
@@ -42,4 +44,8 @@
 
 .@{prefix}-display-none {
     display: none;
+}
+
+li {
+    list-style-type: none;
 }

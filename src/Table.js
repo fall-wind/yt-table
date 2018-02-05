@@ -28,7 +28,6 @@ class Table extends React.Component {
 					tbody.scrollTop = 0
 				}
 			} else {
-                console.error('1111111')
 				getNextFocus(activeDom, `.${ytTablePerfix}-can-focus-cell`)
 			}
 		}

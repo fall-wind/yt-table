@@ -7,13 +7,14 @@ const env = process.env.NODE_ENV
 
 const config = {
 	entry: './src/index.js',
-	external: ['react', 'prop-types', 'rc-select', 'classnames'],
+	external: ['react', 'prop-types', 'rc-select', 'classnames', 'react-dom'],
 	format: 'umd',
 	globals: {
 		react: 'React',
 		"prop-types": 'PropTypes',
 		"rc-select": 'rc-select',
-		"classnames": 'classnames',
+        "classnames": 'classnames',
+        'react-dom': 'ReactDOM',
 	},
 	dest: './lib/ytTable.js',
 	moduleName: 'ytTable',
