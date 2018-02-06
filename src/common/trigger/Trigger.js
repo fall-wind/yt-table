@@ -21,8 +21,9 @@ class Trigger extends React.Component {
 			<Portal
 				key="protal"
 				getContainer={this.getContainer}
-				children={children}
-			/>
+			>
+                {children}
+            </Portal>
 		)
 	}
 }
