@@ -1,6 +1,7 @@
 import React from 'react'
 import TableRow from './TableRow'
 import config from './config'
+import {accArrWidth, pxAdd} from '../utils'
 const { ytTablePerfix } = config
 
 export default class TableBody extends React.Component {
@@ -23,8 +24,11 @@ export default class TableBody extends React.Component {
 	render() {
         const { dataSource, getRowKey, columns } = this.props
         const { currentRowKey } = this.state
+        
 		return (
-			<div className={`${ytTablePerfix}-tbody`}>
+			<div style={{
+                width: pxAdd(accArrWidth(columns, record => record.width), 1)
+            }} className={`${ytTablePerfix}-tbody`}>
 				{dataSource.map((record, index) => (
 					<TableRow
                         {...this.props}

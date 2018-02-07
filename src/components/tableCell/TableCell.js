@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {tableCellChildHoc} from '../../hoc'
+import classnames from 'classnames'
 import InputCell from './InputCell'
 import SelectCell from './SelectCell'
 import config from '../config'
-const { ytTablePerfix } = config
+import { getFlexWidth } from '../../utils'
+const { ytTablePerfix, canFocusType, defaultCellWidth } = config
 
 function renderCell(record, column, props, setClickedValue) {
 	const { type, key } = column
@@ -27,43 +28,56 @@ function renderCell(record, column, props, setClickedValue) {
 					setClickedValue={setClickedValue}
 					value={result}
 				/>
-            )
-            break
+			)
+			break
 		}
 	}
 	return result
 }
 
-const canFocusType = ['select', 'input']
-
 class TableCell extends React.Component {
 	state = {
 		clicked: false,
-    }
-    
-    getChildContext() {
-        return {
-            setClickedValue: this.setClickedValue,
-        }
-    }
+	}
 
-    static childContextTypes = {
-        setClickedValue: PropTypes.func,
-    }
+	getChildContext() {
+		return {
+			setClickedValue: this.setClickedValue,
+		}
+	}
+
+	static childContextTypes = {
+		setClickedValue: PropTypes.func,
+	}
+
+	chechIsCanFocusCell = props => {
+		const { column, record, rowIndex, cellIndex } = props
+		const { width, warp, render, key, canFocus = false } = column
+		return canFocusType.includes(column.type) || canFocus
+	}
 
 	setClickedValue = val => {
 		this.setState({ clicked: val })
 	}
 
 	handleCellClick = () => {
-		if (this.clicked) {
+		if (!this.chechIsCanFocusCell(this.props)) {
+			return
+		}
+		if (this.state.clicked) {
 			return
 		}
 		this.setClickedValue(true)
 	}
 
+	// do not need set false because it child will do it
 	handleBlur = () => {
-		// this.setClickedValue(false)
+		// if (this.chechIsCanFocusCell(this.props)) {
+		//     setTimeout(() => {
+		//         this.setClickedValue(false)
+		//     })
+		//     // this.setClickedValue(false)
+		// }
 	}
 
 	render() {
@@ -71,18 +85,24 @@ class TableCell extends React.Component {
 		const { column, record, rowIndex, cellIndex } = props
 		const { width, warp, render, key, canFocus } = column
 		const { clicked } = this.state
+		const checkChildCanFocus =
+			canFocusType.includes(column.type) || canFocus
+		const rowCellCls = {
+			[`${ytTablePerfix}-row-cell`]: true,
+			[`${ytTablePerfix}-can-focus-cell`]: checkChildCanFocus,
+			[`${ytTablePerfix}-active-cell`]: clicked,
+		}
+
 		return (
 			<div
 				onClick={this.handleCellClick}
-				// tabIndex={Number(`${rowIndex}${cellIndex}`)}
-				tabIndex="-1"
+				{...(checkChildCanFocus ? { tabIndex: '-1' } : {})}
 				onBlur={this.handleBlur}
-				className={`${ytTablePerfix}-row-cell ${
-					(canFocusType.includes(column.type) || canFocus)
-						? `${ytTablePerfix}-can-focus-cell`
-						: ''
-				} ${clicked ? `${ytTablePerfix}-active-cell` : ''}`}
-				key={key}
+				className={classnames(rowCellCls)}
+                key={key}
+                style={{
+                    flex: getFlexWidth(width),
+                }}
 			>
 				<div
 					className={`${ytTablePerfix}-row-cell-content ${
@@ -92,7 +112,7 @@ class TableCell extends React.Component {
 					}`}
 				>
 					{render
-						? (render(record[key], record))
+						? render(record[key], record)
 						: renderCell(
 								record,
 								column,

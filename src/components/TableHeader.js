@@ -1,63 +1,129 @@
 import React from 'react'
+import classnames from 'classnames'
+import TableHeaderCell from './TableHeaderCell'
 import config from './config'
-const { ytTablePerfix } = config
+import { getFlexWidth, pxAdd } from '../utils'
+const { ytTablePerfix, defaultCellWidth } = config
+
+function getUseArr(columns) {
+    const columsObj = {}
+	let useArr = []
+	columns.forEach(column => {
+		if (column.fatherTitle) {
+			if (!columsObj[column.fatherTitle.title]) {
+				try {
+					const subCols = columns.filter(
+						item =>
+							(item.fatherTitle || {}).title ==
+							column.fatherTitle.title,
+					)
+					columsObj[column.fatherTitle.title] = subCols
+					const fatherWidth = subCols.reduce((pre, cur) => {
+						return pre + (cur.width || defaultCellWidth)
+					}, 0)
+					useArr.push({
+						key: column.fatherTitle.title,
+						title: column.fatherTitle.title,
+						isFather: true,
+						subCols,
+						width: fatherWidth,
+					})
+				} catch (error) {
+					console.error('fatherTitle title', error)
+				}
+			}
+		} else {
+			useArr.push(column)
+		}
+    })
+    return useArr
+}
 
 export default function TableHeader(props) {
-	const { columns, theadHeight } = props
-	const usedColumns = [...columns]
+	const { columns, theadHeight, draggable } = props
+	const getHeaderCellCls = (isMul = false, draggable) => {
+		return {
+			// [`${ytTablePerfix}-last-child-no-border`]: true,
+			[`${ytTablePerfix}-thead-cell-mul`]: isMul,
+			[`${ytTablePerfix}-thead-cell`]: !isMul,
+			[`${ytTablePerfix}-up-down-center`]: !isMul,
+			[`${ytTablePerfix}-thead-cell-draggable`]: !isMul && draggable,
+		}
+    }
+    const subCellCls = {
+        [`${ytTablePerfix}-thead-cell-mul-bottom-item`]: true,
+        [`${ytTablePerfix}-up-down-center`]: true,
+        [`${ytTablePerfix}-thead-cell-draggable`]: true,
+    }
+    const useArr = getUseArr(columns)
+	const theadWidth = useArr.reduce((pre, cur) => {
+		return pre + cur.width || defaultCellWidth
+	}, 0)
 	return (
-		<div className={`${ytTablePerfix}-thead`}>
-			{columns.map(item => {
-				const { key, title, width, render, fatherTitle = {} } = item
-				if (fatherTitle.title) {
-					const subArr = columns.filter(
-						column =>
-							(column.fatherTitle || {}).title ==
-							fatherTitle.title,
-					)
-					const index = subArr.findIndex(it => it.key === key)
-					if (index === 0) {
-						return (
+		<div
+			style={{
+				width: pxAdd(theadWidth, 1),
+			}}
+			className={`${ytTablePerfix}-thead`}
+		>
+			{useArr.map(item => {
+				const { key, title, width, render } = item
+				if (item.isFather) {
+					const subCols = item.subCols
+					return (
+						<div
+							className={classnames(
+								getHeaderCellCls(true, draggable),
+							)}
+							key={item}
+							style={{
+								flex: getFlexWidth(width),
+							}}
+						>
 							<div
-								className={`${ytTablePerfix}-thead-cell-mul ${ytTablePerfix}-last-child-no-border`}
-								key={key}
-								style={{
-									flex: subArr.length,
-								}}
+								className={`${ytTablePerfix}-thead-cell-mul-top ${ytTablePerfix}-up-down-center`}
 							>
-								<div
-									className={`${ytTablePerfix}-thead-cell-mul-top ${ytTablePerfix}-up-down-center`}
-								>
-									{title}
-								</div>
-								<div
-									className={`${ytTablePerfix}-thead-cell-mul-bottom`}
-								>
-									{subArr.map(ele => {
-										return (
-											<div
-												key={ele.key}
-												className={`${ytTablePerfix}-thead-cell-mul-bottom-item ${ytTablePerfix}-up-down-center`}
-											>
-												{ele.title}
-											</div>
-										)
-									})}
-								</div>
+								{title}
 							</div>
-						)
-					} else {
-						return null
-					}
+							<div
+								className={`${ytTablePerfix}-thead-cell-mul-bottom`}
+							>
+								{subCols.map(ele => {
+									return (
+										<TableHeaderCell
+											{...props}
+											key={ele.key}
+											columnKey={ele.key}
+											style={{
+												flex: getFlexWidth(
+													ele.width ||
+														defaultCellWidth,
+												),
+											}}
+											className={classnames(subCellCls)}
+										>
+											{ele.title}
+										</TableHeaderCell>
+									)
+								})}
+							</div>
+						</div>
+					)
 				}
 				return (
-					<div
-						className={`${ytTablePerfix}-thead-cell ${ytTablePerfix}-last-child-no-border ${ytTablePerfix}-up-down-center`}
+					<TableHeaderCell
+						{...props}
 						key={key}
-						style={{}}
+						columnKey={key}
+						style={{
+							flex: getFlexWidth(width || defaultCellWidth),
+						}}
+						className={classnames(
+							getHeaderCellCls(false, draggable),
+						)}
 					>
 						{title}
-					</div>
+					</TableHeaderCell>
 				)
 			})}
 		</div>

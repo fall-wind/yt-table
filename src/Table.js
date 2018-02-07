@@ -9,10 +9,31 @@ import { triggerTableCellClick, getNextFocus } from './utils'
 class Table extends React.Component {
 	constructor(props) {
 		super(props)
-		this.state = {}
+		this.state = {
+			columns: props.columns || [],
+		}
 	}
 
-	listener = e => {
+	componentWillReceiveProps(nextProps) {
+		const compareArr = ['columns', 'dataSource']
+		if (this.props.columns !== nextProps.columns) {
+			this.setState({
+				columns: nextProps.columns,
+			})
+		}
+	}
+
+	setColumns = columns => this.setState({ columns })
+
+	shouldComponentUpdate(nextProps) {
+		const compareArr = ['columns']
+		if (compareArr.some(key => this.props[key] !== nextProps[key])) {
+			return false
+		}
+		return true
+	}
+
+	handleKeyDown = e => {
 		if (e.keyCode == 9) {
 			e.preventDefault()
 			const activeDom = document.querySelector(
@@ -28,14 +49,9 @@ class Table extends React.Component {
 					tbody.scrollTop = 0
 				}
 			} else {
-                console.error('1111111')
 				getNextFocus(activeDom, `.${ytTablePerfix}-can-focus-cell`)
 			}
 		}
-	}
-
-	componentDidMount() {
-		document.addEventListener('keydown', this.listener)
 	}
 
 	componentWillUnmount() {}
@@ -43,8 +59,16 @@ class Table extends React.Component {
 	render() {
 		return (
 			<div onKeyDown={this.handleKeyDown} className="yt-table-container">
-				<TableHeader {...this.props} />
-				<TableBody {...this.props} />
+				<TableHeader
+					{...this.props}
+					columns={this.state.columns}
+					setColumns={this.setColumns}
+				/>
+				<TableBody
+					{...this.props}
+					columns={this.state.columns}
+					setColumns={this.setColumns}
+				/>
 			</div>
 		)
 	}

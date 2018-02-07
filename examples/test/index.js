@@ -1,11 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import OtherTableShow from './src/OtherTableShow'
+// import OtherTableShow from './src/OtherTableShow'
 import Table from '../../lib/ytTable'
+import { Select } from 'antd'
+// import Select, { Option } from 'rc-select'
+// import Trigger from 'rc-trigger'
 import 'normalize.css'
-const { Select } = Table
 
+// const { Select } = Table
 const Option = Select.Option
+
 const data = [
 	{
 		name: 'yt1111111111111111111111111111',
@@ -26,24 +30,29 @@ const columns = [
 	{
 		title: '姓名',
 		key: 'name',
-        type: 'input',
+		type: 'input',
         canFocus: true,
+        width: 100,
 	},
 	{
 		title: '年龄',
 		key: 'age',
 		fatherTitle: {
 			title: '基本信息',
-		},
+        },
+        width: 100,
 	},
 	{
 		title: '性别',
 		key: 'sex',
-		type: 'input',
+		type: 'select',
+		// type: 'input',
 		fatherTitle: {
 			title: '基本信息',
-        },
+		},
+		options: [{ value: '女', key: '1' }, { value: '男', key: '2' }],
         canFocus: true,
+        width: 100,
 	},
 	{
 		title: '身高',
@@ -51,23 +60,10 @@ const columns = [
 		type: 'input',
 		fatherTitle: {
 			title: '基本信息',
-        },
+		},
         canFocus: true,
-        // render(value, record) {
-        //     return <input type="text"/>
-        // }
+        width: 100,
 	},
-	// { title: '性别', key: 'sex', render(text, record) {
-	//     return (
-	//         <select onChange={e => {
-	//         }}>
-	//             <option value="ss">sss</option>
-	//             <option value="sss">sss</option>
-	//             <option value="ssss">ssss</option>
-	//             <option value="sssss">sssss</option>
-	//         </select>
-	//     )
-	// } },
 ]
 
 const columns1 = [
@@ -123,17 +119,17 @@ class TableTest extends React.Component {
 				<div>common table</div>
 				<div
 					style={{
-						width: 300,
+						// width: 300,
 						height: 200,
 					}}
 				>
 					<Table
+                        draggable
 						getRowKey={record => record.id}
 						dataSource={this.state.dataSource}
 						columns={this.state.columns}
 						onCellChange={this.handleCellChange}
-						handleRowClick={rowKey => {
-						}}
+						handleRowClick={rowKey => {}}
 					/>
 				</div>
 			</div>
@@ -145,13 +141,13 @@ function App(props) {
 	return (
 		<div style={{ marginLeft: 10 }}>
 			<TableTest />
-			<div style={{ marginTop: 20 }}>
-				<Select>
-					{[1, 2, 3, 4].map(item => <Option key={item}>{item}</Option>)}
-				</Select>
-			</div>
-			{/* <div>other table: react-data-grid </div>
-            <OtherTableShow /> */}
+			<Select style={{ width: 180 }}>
+				{[1, 2, 3, 4].map(it => (
+					<Option key={it} value={it}>
+						{it}
+					</Option>
+				))}
+			</Select>
 		</div>
 	)
 }

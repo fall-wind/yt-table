@@ -1,5 +1,6 @@
 l am a table component;
 
+![Image text](./assert/yt-table1.gif)
 ## usage
 
 
@@ -70,6 +71,14 @@ column set type 'input',
 },
 ```
 
+#### dragheader
+
+you can use set ```draggable={true}``` or just ```draggable``` for
+drag and drop to table cell size
+
 ### Reference resources
 - [react-data-grid](https://github.com/adazzle/react-data-grid)
 
+### issue
+tab切换到下一个输入框  
+作为组件 在document监听事件 感觉不太好啊
