@@ -58,3 +58,37 @@ export const getNextFocus = (dom, selector) => {
 		triggerTableCellClick(nextNode)
 	}
 }
+
+export function getFlexWidth(widthStr) {
+    let widthPx = widthStr + ''
+    if (widthPx.indexOf('px') === -1) {
+        widthPx = widthPx + 'px'
+    }
+    return `0 0 ${widthPx}`
+}
+
+export function subStrNoPx(param) {
+    if ((param + '').indexOf('px') > -1) {
+        return (param + '').slice(-2)
+    }
+    return param
+}
+
+export function pxAdd(...args) {
+    return args.reduce((cur, pre) => {
+        return cur + Number(subStrNoPx(pre))
+    }, 0)
+}
+
+export function accArrWidth(arr = [], keyCall) {
+    const getObjNum = (obj, keyCall) => {
+        let item = obj
+        if (keyCall) {
+            item = keyCall(obj)
+        }
+        return Number(item)
+    }
+    return arr.reduce((pre, cur) => {
+        return pre + getObjNum(cur,keyCall)
+    }, 0)
+}

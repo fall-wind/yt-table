@@ -8,4 +8,4 @@ function hash32shift(key) {
 	return key
 }
 
-console.log(hash32shift(123))
+// console.log(hash32shift(123))

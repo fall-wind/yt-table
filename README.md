@@ -1,5 +1,6 @@
 l am a table component;
 
+![Image text](./assert/yt-table1.gif)
 ## usage
 
 
@@ -69,6 +70,11 @@ column set type 'input',
     canFocus: true,
 },
 ```
+
+#### dragheader
+
+you can use set ```draggable={true}``` or just ```draggable``` for
+drag and drop to table cell size
 
 ### Reference resources
 - [react-data-grid](https://github.com/adazzle/react-data-grid)

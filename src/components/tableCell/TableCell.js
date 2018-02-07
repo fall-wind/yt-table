@@ -4,7 +4,8 @@ import classnames from 'classnames'
 import InputCell from './InputCell'
 import SelectCell from './SelectCell'
 import config from '../config'
-const { ytTablePerfix, canFocusType } = config
+import { getFlexWidth } from '../../utils'
+const { ytTablePerfix, canFocusType, defaultCellWidth } = config
 
 function renderCell(record, column, props, setClickedValue) {
 	const { type, key } = column
@@ -98,7 +99,10 @@ class TableCell extends React.Component {
 				{...(checkChildCanFocus ? { tabIndex: '-1' } : {})}
 				onBlur={this.handleBlur}
 				className={classnames(rowCellCls)}
-				key={key}
+                key={key}
+                style={{
+                    flex: getFlexWidth(width),
+                }}
 			>
 				<div
 					className={`${ytTablePerfix}-row-cell-content ${

@@ -9,7 +9,7 @@
 .@{yt-table-perfix}-container {
     height: inherit;
     width: auto;
-    overflow: hidden;
+    overflow: auto;
     display: flex;
     flex-direction: column;
 	.@{yt-table-perfix}-thead {
@@ -18,6 +18,10 @@
         display: flex;
         flex-direction: row;
         text-align: center;
+        .@{yt-table-perfix}-thead-cell-draggable {
+            cursor: col-resize;
+            // cursor: e-resize;
+        }
 		.@{yt-table-perfix}-thead-cell {
             // box-sizing: border-box;
             flex: 1;
@@ -28,7 +32,7 @@
 			}
         }
         .@{yt-table-perfix}-thead-cell-mul {
-            // flex: 1;
+            flex: 1;
             border-right: 1px solid @borderColor;
             border-bottom: 0px;
             display: flex;

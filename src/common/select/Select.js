@@ -74,7 +74,6 @@ class Select extends React.Component {
 		} else {
 			const styleObj = getOffset(this.selectRef)
 			if (this.dropDownRef) {
-				console.info(this.dropDownRef.style, 'sss')
 				this.dropDownRef.style.top =
 					styleObj.top + styleObj.height + 'px'
 				this.dropDownRef.style.left = styleObj.left + 'px'
@@ -97,7 +96,6 @@ class Select extends React.Component {
 	handleKeyDown = e => {
 		const { dataLen, activeIndex, focused, dropDownShow } = this.state
 		// up 38 down 40
-		console.error('???', e.keyCode)
 		const listenKeyArr = [38, 40, 13]
 		if (dataLen === 0) return
 		if (e.keyCode == 38 || e.keyCode == 40) {

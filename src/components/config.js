@@ -1,4 +1,5 @@
 export default {
 	ytTablePerfix: 'yt-table',
-	canFocusType: ['select', 'input'],
+    canFocusType: ['select', 'input'],
+    defaultCellWidth: 100,
 }

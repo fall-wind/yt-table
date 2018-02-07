@@ -9,7 +9,28 @@ import { triggerTableCellClick, getNextFocus } from './utils'
 class Table extends React.Component {
 	constructor(props) {
 		super(props)
-		this.state = {}
+		this.state = {
+			columns: props.columns || [],
+		}
+	}
+
+	componentWillReceiveProps(nextProps) {
+		const compareArr = ['columns', 'dataSource']
+		if (this.props.columns !== nextProps.columns) {
+			this.setState({
+				columns: nextProps.columns,
+			})
+		}
+	}
+
+	setColumns = columns => this.setState({ columns })
+
+	shouldComponentUpdate(nextProps) {
+		const compareArr = ['columns']
+		if (compareArr.some(key => this.props[key] !== nextProps[key])) {
+			return false
+		}
+		return true
 	}
 
 	handleKeyDown = e => {
@@ -33,13 +54,21 @@ class Table extends React.Component {
 		}
 	}
 
-    componentWillUnmount() {}
+	componentWillUnmount() {}
 
 	render() {
 		return (
 			<div onKeyDown={this.handleKeyDown} className="yt-table-container">
-				<TableHeader {...this.props} />
-				<TableBody {...this.props} />
+				<TableHeader
+					{...this.props}
+					columns={this.state.columns}
+					setColumns={this.setColumns}
+				/>
+				<TableBody
+					{...this.props}
+					columns={this.state.columns}
+					setColumns={this.setColumns}
+				/>
 			</div>
 		)
 	}

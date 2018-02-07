@@ -31,14 +31,16 @@ const columns = [
 		title: '姓名',
 		key: 'name',
 		type: 'input',
-		canFocus: true,
+        canFocus: true,
+        width: 100,
 	},
 	{
 		title: '年龄',
 		key: 'age',
 		fatherTitle: {
 			title: '基本信息',
-		},
+        },
+        width: 100,
 	},
 	{
 		title: '性别',
@@ -49,7 +51,8 @@ const columns = [
 			title: '基本信息',
 		},
 		options: [{ value: '女', key: '1' }, { value: '男', key: '2' }],
-		canFocus: true,
+        canFocus: true,
+        width: 100,
 	},
 	{
 		title: '身高',
@@ -58,7 +61,8 @@ const columns = [
 		fatherTitle: {
 			title: '基本信息',
 		},
-		canFocus: true,
+        canFocus: true,
+        width: 100,
 	},
 ]
 
@@ -115,11 +119,12 @@ class TableTest extends React.Component {
 				<div>common table</div>
 				<div
 					style={{
-						width: 300,
+						// width: 300,
 						height: 200,
 					}}
 				>
 					<Table
+                        draggable
 						getRowKey={record => record.id}
 						dataSource={this.state.dataSource}
 						columns={this.state.columns}

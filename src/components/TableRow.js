@@ -1,6 +1,7 @@
 import React from 'react'
 import TableCell from './tableCell/TableCell'
 import config from './config'
+import { accArrWidth, pxAdd } from '../utils'
 const { ytTablePerfix } = config
 
 class TableRow extends React.PureComponent {
@@ -22,6 +23,10 @@ class TableRow extends React.PureComponent {
         const isSelectedRow = rowKey === currentRowKey
 		return (
 			<div
+                style={{
+                    width: pxAdd(accArrWidth(columns, record => record.width), 2),
+                    width: accArrWidth(columns, record => record.width),
+                }}
                 onClick={this.handleRowClick}
 				onDoubleClick={this.handleDoubleRowClick}
 				className={`${ytTablePerfix}-row ${isSelectedRow?`${ytTablePerfix}-selected-row`:''}`}
