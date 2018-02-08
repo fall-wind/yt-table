@@ -1,8 +1,9 @@
 import React from 'react'
-import {tableCellChildHoc} from '../../hoc'
+import { tableCellChildHoc } from '../../hoc'
 import { Select } from '../../common'
-import config from '../config'
-const { ytTablePerfix } = config
+// import config from '../config'
+
+// const { ytTablePerfix } = config
 
 const Option = Select.Option
 // just test
@@ -14,7 +15,7 @@ class SelectCell extends React.Component {
 	}
 
 	render() {
-		const { value, column } = this.props
+		const { column } = this.props
 		const { options } = column
 
 		return (

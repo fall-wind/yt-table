@@ -1,23 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export default function hoc(params) {
+export default function hoc() {
 	return WarpComponent => {
 		return class PP extends React.Component {
+			static contextTypes = {
+				setClickedValue: PropTypes.func,
+			}
 
-            static contextTypes = {
-                setClickedValue: PropTypes.func,
-            }
+			onBlur = (...args) => {
+				const { onBlur } = this.props
+				onBlur && onBlur(args)
+				this.context.setClickedValue(false)
+			}
 
-            onBlur = (...args) => {
-                const { onBlur } = this.props
-                onBlur && onBlur(args)
-                this.context.setClickedValue(false)
-            }
-
-            render() {
-                return <WarpComponent {...this.props} onBlur={this.onBlur}/>
-            }
-        }
+			render() {
+				return <WarpComponent {...this.props} onBlur={this.onBlur} />
+			}
+		}
 	}
 }

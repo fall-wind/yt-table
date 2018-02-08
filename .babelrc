@@ -8,8 +8,8 @@
 					"plugins": ["external-helpers"]
 				},
 				"modules": false,
-				"loose": true,
-				"debug": true
+				"loose": true
+				// "debug": true
 			}
 		]
 	],

@@ -9,6 +9,10 @@ export default class Portal extends React.Component {
 		didUpdate: PropTypes.func,
 	}
 
+	static defaultProps = {
+		didUpdate: () => {},
+	}
+
 	componentDidMount() {
 		this.createContainer()
 	}

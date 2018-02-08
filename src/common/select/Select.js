@@ -16,15 +16,15 @@ class Select extends React.Component {
 			dataLen: (props.children || []).length,
 			value: props.value || '',
 			dropDownShow: false,
-			styleObj: {},
+			// styleObj: {},
 		}
 	}
 
-    // .......
+	// .......
 	onDocumentClick = e => {
 		if (this.state.focused && this.state.dropDownShow) {
 			return
-        }
+		}
 		if (!contains(this.dropDownRef) && !contains(this.selectRef)) {
 			this.handleBlur(e)
 		}
@@ -74,10 +74,10 @@ class Select extends React.Component {
 		} else {
 			const styleObj = getOffset(this.selectRef)
 			if (this.dropDownRef) {
-				this.dropDownRef.style.top =
-					styleObj.top + styleObj.height + 'px'
-				this.dropDownRef.style.left = styleObj.left + 'px'
-				this.dropDownRef.style.width = styleObj.width + 'px'
+				this.dropDownRef.style.top = `${styleObj.top +
+					styleObj.height}px`
+				this.dropDownRef.style.left = `${styleObj.left}px`
+				this.dropDownRef.style.width = `${styleObj.width}px`
 			}
 		}
 		this.focused = true
@@ -94,11 +94,11 @@ class Select extends React.Component {
 	}
 
 	handleKeyDown = e => {
-		const { dataLen, activeIndex, focused, dropDownShow } = this.state
+		const { dataLen, activeIndex, dropDownShow } = this.state
 		// up 38 down 40
-		const listenKeyArr = [38, 40, 13]
+		// const listenKeyArr = [38, 40, 13]
 		if (dataLen === 0) return
-		if (e.keyCode == 38 || e.keyCode == 40) {
+		if (e.keyCode === 38 || e.keyCode === 40) {
 			if (!dropDownShow) {
 				this.setState({
 					dropDownShow: true,
@@ -112,11 +112,11 @@ class Select extends React.Component {
 			})
 			e.preventDefault()
 			e.stopPropagation()
-		} else if (e.keyCode == 13) {
+		} else if (e.keyCode === 13) {
 			const option = this.props.children[activeIndex]
 			const value = option.props.value
 			this.onSelect(value, option)
-		} else if (e.keyCode == 9) {
+		} else if (e.keyCode === 9) {
 			this.handleBlur(e)
 		}
 	}
@@ -127,9 +127,8 @@ class Select extends React.Component {
 			dropDownShow: false,
 		})
 		onSelect && onSelect(val, option)
-		if ('value' in this.props) {
-		} else {
-			this.setState({
+		if (!('value' in this.props)) {
+            this.setState({
 				value: val,
 			})
 		}
@@ -137,8 +136,9 @@ class Select extends React.Component {
 
 	render() {
 		const { children, style = {} } = this.props
-		const { focused, activeIndex, dropDownShow, styleObj } = this.state
-		let value = 'value' in this.props ? this.props.value : this.state.value
+		const { focused, activeIndex, dropDownShow } = this.state
+		const value =
+			'value' in this.props ? this.props.value : this.state.value
 		const getOptionItemCls = index => {
 			return {
 				[`${prefix}-drop-down-item`]: true,
@@ -175,14 +175,14 @@ class Select extends React.Component {
 						className={classnames(dropDownCls)}
 						role="menu"
 					>
-						{React.Children.map(children, function(child, index) {
-							const { props } = child
-							const { value } = props
+						{React.Children.map(children, (child, index) => {
+							// const { props } = child
+							// const { value } = props
 							return (
 								<li
 									role="menuitem"
 									className={classnames(
-										getOptionItemCls(index),
+										getOptionItemCls(index)
 									)}
 									onClick={() => {
 										self.onSelect(value, child)

@@ -1,5 +1,3 @@
 import tableCellChildHoc from './tableCellchildHoc'
 
-export {
-    tableCellChildHoc,
-}
+export { tableCellChildHoc }

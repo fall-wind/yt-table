@@ -5,34 +5,35 @@ import InputCell from './InputCell'
 import SelectCell from './SelectCell'
 import config from '../config'
 import { getFlexWidth } from '../../utils'
-const { ytTablePerfix, canFocusType, defaultCellWidth } = config
+
+const { ytTablePerfix, canFocusType } = config
 
 function renderCell(record, column, props, setClickedValue) {
 	const { type, key } = column
-	let result = record[key]
+	const result = record[key]
 	switch (type) {
 		case 'input': {
-			result = (
+			return (
 				<InputCell
 					{...props}
 					setClickedValue={setClickedValue}
 					value={result}
 				/>
 			)
-			break
 		}
 		case 'select': {
-			result = (
+			return (
 				<SelectCell
 					{...props}
 					setClickedValue={setClickedValue}
 					value={result}
 				/>
 			)
-			break
-		}
+        }
+        default: {
+            return result
+        }
 	}
-	return result
 }
 
 class TableCell extends React.Component {
@@ -51,8 +52,8 @@ class TableCell extends React.Component {
 	}
 
 	chechIsCanFocusCell = props => {
-		const { column, record, rowIndex, cellIndex } = props
-		const { width, warp, render, key, canFocus = false } = column
+		const { column } = props
+		const { canFocus = false } = column
 		return canFocusType.includes(column.type) || canFocus
 	}
 
@@ -82,7 +83,7 @@ class TableCell extends React.Component {
 
 	render() {
 		const props = this.props
-		const { column, record, rowIndex, cellIndex } = props
+		const { column, record } = props
 		const { width, warp, render, key, canFocus } = column
 		const { clicked } = this.state
 		const checkChildCanFocus =
@@ -99,10 +100,10 @@ class TableCell extends React.Component {
 				{...(checkChildCanFocus ? { tabIndex: '-1' } : {})}
 				onBlur={this.handleBlur}
 				className={classnames(rowCellCls)}
-                key={key}
-                style={{
-                    flex: getFlexWidth(width),
-                }}
+				key={key}
+				style={{
+					flex: getFlexWidth(width),
+				}}
 			>
 				<div
 					className={`${ytTablePerfix}-row-cell-content ${
@@ -117,7 +118,7 @@ class TableCell extends React.Component {
 								record,
 								column,
 								props,
-								this.setClickedValue,
+								this.setClickedValue
 							)}
 				</div>
 			</div>

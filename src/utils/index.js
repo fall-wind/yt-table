@@ -1,22 +1,23 @@
 import config from '../components/config'
+
 const { ytTablePerfix } = config
 
 export const triggerTableCellClick = dom => {
 	if (dom) {
-        dom.click()
-        let subSubChild = null
-        try {
-            subSubChild = dom.childNodes[0].childNodes[0]
-        } catch (error) {
-            
+		dom.click()
+		let subSubChild = null
+		try {
+			subSubChild = dom.childNodes[0].childNodes[0]
+		} catch (error) {
+            alert(error)
         }
 		if (subSubChild) {
-            subSubChild.click()
-            if (subSubChild.className.indexOf('select')) {
-                subSubChild.click()
-                subSubChild.focus()
-            }
-        }
+			subSubChild.click()
+			if (subSubChild.className.indexOf('select')) {
+				subSubChild.click()
+				subSubChild.focus()
+			}
+		}
 	}
 }
 
@@ -32,13 +33,13 @@ function getCanFocusChildNodes(dom) {
 			Array.from(dom.childNodes).filter(
 				node =>
 					node.className.indexOf(`${ytTablePerfix}-can-focus-cell`) >
-					-1,
+					-1
 			)) ||
 		[]
 	)
 }
 
-export const getNextFocus = (dom, selector) => {
+export const getNextFocus = dom => {
 	const pNode = dom.parentNode
 	const canFoucesArr = getCanFocusChildNodes(pNode)
 	const selfIndex = canFoucesArr.indexOf(dom)
@@ -49,7 +50,7 @@ export const getNextFocus = (dom, selector) => {
 		nextNode = canFoucesArr[selfIndex + 1]
 	} else {
 		const nextRow = document.querySelector(
-			`.${ytTablePerfix}-row:nth-child(${pIndex + 2})`,
+			`.${ytTablePerfix}-row:nth-child(${pIndex + 2})`
 		)
 		const nextRowArr = getCanFocusChildNodes(nextRow)
 		nextNode = nextRowArr[0]
@@ -60,35 +61,35 @@ export const getNextFocus = (dom, selector) => {
 }
 
 export function getFlexWidth(widthStr) {
-    let widthPx = widthStr + ''
-    if (widthPx.indexOf('px') === -1) {
-        widthPx = widthPx + 'px'
-    }
-    return `0 0 ${widthPx}`
+	let widthPx = `${widthStr}`
+	if (widthPx.indexOf('px') === -1) {
+		widthPx += 'px'
+	}
+	return `0 0 ${widthPx}`
 }
 
 export function subStrNoPx(param) {
-    if ((param + '').indexOf('px') > -1) {
-        return (param + '').slice(-2)
-    }
-    return param
+	if ((`${param}`).indexOf('px') > -1) {
+		return (`${param}`).slice(-2)
+	}
+	return param
 }
 
 export function pxAdd(...args) {
-    return args.reduce((cur, pre) => {
-        return cur + Number(subStrNoPx(pre))
-    }, 0)
+	return args.reduce((cur, pre) => {
+		return cur + Number(subStrNoPx(pre))
+	}, 0)
 }
 
 export function accArrWidth(arr = [], keyCall) {
-    const getObjNum = (obj, keyCall) => {
-        let item = obj
-        if (keyCall) {
-            item = keyCall(obj)
-        }
-        return Number(item)
-    }
-    return arr.reduce((pre, cur) => {
-        return pre + getObjNum(cur,keyCall)
-    }, 0)
+	const getObjNum = (obj, callback) => {
+		let item = obj
+		if (callback) {
+			item = callback(obj)
+		}
+		return Number(item)
+	}
+	return arr.reduce((pre, cur) => {
+		return pre + getObjNum(cur, keyCall)
+	}, 0)
 }

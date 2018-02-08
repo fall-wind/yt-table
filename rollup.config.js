@@ -2,6 +2,7 @@ import babel from 'rollup-plugin-babel'
 import postcss from 'rollup-plugin-postcss'
 import commonjs from 'rollup-plugin-commonjs'
 import uglify from 'rollup-plugin-uglify'
+import eslint from 'rollup-plugin-eslint'
 
 const env = process.env.NODE_ENV
 
@@ -23,11 +24,14 @@ const config = {
 		postcss({
             // extract: true,
 			plugins: [],
-		}),
+        }),
+        eslint({
+            exclude: [/\.(less)$/, '**/examples/**', 'lib/**', '**/node_modules/**', 'asert/**']
+        }),
 		babel({
             exclude: '**/node_modules/**',
             plugins: ['external-helpers']
-		}),
+        }),
 		commonjs(),
 	],
 }

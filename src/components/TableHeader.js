@@ -3,18 +3,19 @@ import classnames from 'classnames'
 import TableHeaderCell from './TableHeaderCell'
 import config from './config'
 import { getFlexWidth, pxAdd } from '../utils'
+
 const { ytTablePerfix, defaultCellWidth } = config
 
 function getUseArr(columns) {
     const columsObj = {}
-	let useArr = []
+	const useArr = []
 	columns.forEach(column => {
 		if (column.fatherTitle) {
 			if (!columsObj[column.fatherTitle.title]) {
 				try {
 					const subCols = columns.filter(
 						item =>
-							(item.fatherTitle || {}).title ==
+							(item.fatherTitle || {}).title ===
 							column.fatherTitle.title,
 					)
 					columsObj[column.fatherTitle.title] = subCols
@@ -40,14 +41,14 @@ function getUseArr(columns) {
 }
 
 export default function TableHeader(props) {
-	const { columns, theadHeight, draggable } = props
-	const getHeaderCellCls = (isMul = false, draggable) => {
+	const { columns, draggable } = props
+	const getHeaderCellCls = (isMul = false, dragValue) => {
 		return {
 			// [`${ytTablePerfix}-last-child-no-border`]: true,
 			[`${ytTablePerfix}-thead-cell-mul`]: isMul,
 			[`${ytTablePerfix}-thead-cell`]: !isMul,
 			[`${ytTablePerfix}-up-down-center`]: !isMul,
-			[`${ytTablePerfix}-thead-cell-draggable`]: !isMul && draggable,
+			[`${ytTablePerfix}-thead-cell-draggable`]: !isMul && dragValue,
 		}
     }
     const subCellCls = {
@@ -67,7 +68,7 @@ export default function TableHeader(props) {
 			className={`${ytTablePerfix}-thead`}
 		>
 			{useArr.map(item => {
-				const { key, title, width, render } = item
+				const { key, title, width } = item
 				if (item.isFather) {
 					const subCols = item.subCols
 					return (

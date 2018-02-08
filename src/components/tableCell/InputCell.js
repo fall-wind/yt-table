@@ -1,6 +1,7 @@
 import React from 'react'
 import { tableCellChildHoc } from '../../hoc'
 import config from '../config'
+
 const { ytTablePerfix } = config
 
 @tableCellChildHoc('input')
@@ -25,22 +26,21 @@ class Input extends React.Component {
 			},
 			() => {
 				this.inputRef && this.inputRef.select()
-			},
+			}
 		)
 	}
 
-	onBlur = (e) => {
+	onBlur = e => {
 		this.setState({
 			currentType: 'text',
-        })
-        const { onBlur } = this.props
+		})
+		const { onBlur } = this.props
 		onBlur && onBlur(e)
-        // const { setClickedValue } = this.props
+		// const { setClickedValue } = this.props
 		// setClickedValue && setClickedValue(false)
 	}
 
-	handleFocus = e => {
-	}
+	// handleFocus = e => {}
 
 	render() {
 		const { value } = this.props
@@ -58,7 +58,7 @@ class Input extends React.Component {
 				{value}
 			</span>
 		)
-		if (currentType == 'input') {
+		if (currentType === 'input') {
 			result = (
 				<input
 					className={`${ytTablePerfix}-cell-input`}
