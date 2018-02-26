@@ -2,13 +2,13 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 // import OtherTableShow from './src/OtherTableShow'
 import Table from '../../lib/ytTable'
-import { Select } from 'antd'
+// import { Select } from 'antd'
 // import Select, { Option } from 'rc-select'
 // import Trigger from 'rc-trigger'
 import 'normalize.css'
 
 // const { Select } = Table
-const Option = Select.Option
+// const Option = Select.Option
 
 const data = [
 	{
@@ -141,13 +141,13 @@ function App(props) {
 	return (
 		<div style={{ marginLeft: 10 }}>
 			<TableTest />
-			<Select style={{ width: 180 }}>
+			{/* <Select style={{ width: 180 }}>
 				{[1, 2, 3, 4].map(it => (
 					<Option key={it} value={it}>
 						{it}
 					</Option>
 				))}
-			</Select>
+			</Select> */}
 		</div>
 	)
 }

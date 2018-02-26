@@ -30,7 +30,6 @@ function getUseArr(columns) {
 						width: fatherWidth,
 					})
 				} catch (error) {
-					console.error('fatherTitle title', error)
 				}
 			}
 		} else {

@@ -4,7 +4,6 @@ import Portal from '../util/Portal'
 // 当点击在body上的元素 select失去焦点
 class Trigger extends React.Component {
 	getContainer() {
-        console.error(this, '???')
 		const popupContainer = document.createElement('div')
 		popupContainer.style.position = 'absolute'
 		popupContainer.style.top = '0'
