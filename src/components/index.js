@@ -1,7 +1,4 @@
-import TableBody from './TableBody'
-import TableHeader from './TableHeader'
+import Tbody from './tbody';
+import Thead from './thead';
 
-export {
-    TableHeader,
-    TableBody,
-}
+export { Tbody, Thead };

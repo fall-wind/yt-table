@@ -1,70 +1,43 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-// import OtherTableShow from './src/OtherTableShow'
-import Table from '../../lib/ytTable'
-// import { Select } from 'antd'
-// import Select, { Option } from 'rc-select'
-// import Trigger from 'rc-trigger'
-import 'normalize.css'
-
-// const { Select } = Table
-// const Option = Select.Option
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Table from '../../lib/ytTable';
 
 const data = [
-	{
-		name: 'yt1111111111111111111111111111',
-		age: '25',
-		id: 1,
-		sex: '男',
-		height: '174',
-	},
+	{ name: 'yt1', age: '25', id: 1, sex: '男', height: '174' },
 	{ name: 'yt2', age: '25', id: 2, sex: '男', height: '174' },
 	{ name: 'yt3', age: '25', id: 3, sex: '男', height: '174' },
 	{ name: 'yt3', age: '25', id: 4, sex: '男', height: '174' },
 	{ name: 'yt3', age: '25', id: 5, sex: '男', height: '174' },
 	{ name: 'yt3', age: '25', id: 6, sex: '男', height: '174' },
 	{ name: 'yt3', age: '25', id: 7, sex: '男', height: '175' },
-]
+];
 
 const columns = [
 	{
 		title: '姓名',
 		key: 'name',
-		type: 'input',
-        canFocus: true,
-        width: 100,
+		dataIndex: 'name',
 	},
 	{
-		title: '年龄',
-		key: 'age',
-		fatherTitle: {
-			title: '基本信息',
-        },
-        width: 100,
+		children: [
+			{
+				title: '年龄',
+				key: 'age',
+				dataIndex: 'age',
+			},
+			{
+				title: '性别',
+				key: 'sex',
+				dataIndex: 'sex',
+			},
+			{
+				title: '身高',
+				key: 'height',
+				dataIndex: 'height',
+			},
+		],
 	},
-	{
-		title: '性别',
-		key: 'sex',
-		type: 'select',
-		// type: 'input',
-		fatherTitle: {
-			title: '基本信息',
-		},
-		options: [{ value: '女', key: '1' }, { value: '男', key: '2' }],
-        canFocus: true,
-        width: 100,
-	},
-	{
-		title: '身高',
-		key: 'height',
-		type: 'input',
-		fatherTitle: {
-			title: '基本信息',
-		},
-        canFocus: true,
-        width: 100,
-	},
-]
+];
 
 const columns1 = [
 	{
@@ -86,54 +59,50 @@ const columns1 = [
 			title: '基本信息',
 		},
 	},
-]
+];
 
 class TableTest extends React.Component {
 	constructor(props) {
-		super(props)
+		super(props);
 		this.state = {
 			columns,
 			dataSource: data,
-		}
+		};
 	}
 
 	handleCellChange = (rowKey, cellKey, val) => {
-		const { dataSource } = this.state
+		const { dataSource } = this.state;
 		this.setState({
 			dataSource: dataSource.map(record => {
 				if (record.id === rowKey) {
 					return {
 						...record,
 						[cellKey]: val,
-					}
+					};
 				}
-				return record
+				return record;
 			}),
-		})
-	}
+		});
+    };
+    
+    rowKey = record => {
+        return record.id
+    }
 
 	render() {
-		const { name } = this.props
+		// const { name } = this.props;
 		return (
 			<div>
 				<div>common table</div>
-				<div
-					style={{
-						// width: 300,
-						height: 200,
-					}}
-				>
+				<div style={{ display: 'flex', flex: 1 }}>
 					<Table
-                        draggable
-						getRowKey={record => record.id}
+                        rowKey={this.rowKey}
 						dataSource={this.state.dataSource}
 						columns={this.state.columns}
-						onCellChange={this.handleCellChange}
-						handleRowClick={rowKey => {}}
 					/>
 				</div>
 			</div>
-		)
+		);
 	}
 }
 
@@ -149,7 +118,7 @@ function App(props) {
 				))}
 			</Select> */}
 		</div>
-	)
+	);
 }
 
-ReactDOM.render(<App />, document.getElementById('app'))
+ReactDOM.render(<App />, document.getElementById('app'));

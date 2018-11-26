@@ -18,7 +18,8 @@
     "react": "^16.2.0",
     "react-data-grid": "^3.0.9",
     "react-data-grid-addons": "^3.0.9",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "react-virtualized": "^9.21.0"
   },
   "devDependencies": {
     "babel-plugin-import": "^1.6.3",
