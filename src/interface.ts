@@ -112,7 +112,7 @@ export interface HSelectCellProps<T> {
 export interface HColProps<T> {
     column: ColumnProps<T>
     columns: ColumnProps<T>[]
-    curResizedObj: ResizerData
+    curResizedObj?: ResizerData
 
     resized: ResizerData[]
     currentlyResizing: CurrentlyResizingProps
@@ -122,7 +122,7 @@ export interface HColProps<T> {
 export interface HCellProps<T> {
     column: ColumnProps<T>
     columns: ColumnProps<T>[]
-    curResizedObj: ResizerData
+    curResizedObj?: ResizerData
     resized: ResizerData[]
     isLastCol?: Boolean
 
@@ -134,12 +134,12 @@ export interface HCellProps<T> {
 export interface HCellGroupProps<T> {
     column: ColumnProps<T>
     columns: ColumnProps<T>[]
-    curResizedObj: ResizerData
+    curResizedObj?: ResizerData
     resized: ResizerData[]
     isLastCol?: Boolean
 
     siblingTitleArr: ColumnProps<T>[]
-    pColumn: ColumnProps<T>
+    // pColumn: ColumnProps<T>
     currentlyResizing: CurrentlyResizingProps
     setStateWithData: (prevState: any, cb?: () => void ) => void
 }

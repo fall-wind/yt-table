@@ -76,7 +76,7 @@ class Resizer<T> extends React.Component<ResizerProps<T>, any> {
         setStateWithData({
             resized: genResize({
                 column,
-                columns,
+                // columns,
                 pColumn, // is mul cell parent columns
                 resized,
                 newWidth: genWidthVal(newWidth),

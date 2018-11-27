@@ -3,6 +3,8 @@ import { TableProps, TableState } from './interface';
 import { genInitConfig, genNewConfigByOld } from './utils';
 import { Thead } from './component'
 
+import './index.less'
+
 class Table<T> extends React.Component<TableProps<T>, TableState<T>> {
     constructor(props: TableProps<T>) {
         super(props);

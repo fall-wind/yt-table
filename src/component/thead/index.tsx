@@ -147,8 +147,10 @@ function HCellGroup<T>(props: HCellGroupProps<T>) {
  */
 function HCell<T>(props: HCellProps<T>) {
 	const { column, curResizedObj } = props;
-	const { title, styles = {} } = column;
-
+    const { title, styles = {} } = column;
+    if (!curResizedObj) {
+        return null
+    }
 	return (
 		<div
 			style={getCellWidthStyl({ curResizedObj, styles })}
@@ -173,9 +175,9 @@ function HCell<T>(props: HCellProps<T>) {
  */
 function HCol<T>(props: HColProps<T>) {
 	const { column, columns } = props;
-	const isLastCol = isLastChild(columns, column);
+    const isLastCol = isLastChild(columns, column);
 	if (column.children) {
-		return <HCellGroup {...props} pColumn={column} siblingTitleArr={column.children} isLastCol={isLastCol} />;
+		return <HCellGroup {...props} siblingTitleArr={column.children} isLastCol={isLastCol} />;
 	}
 	return <HCell {...props} isLastCol={isLastCol} />;
 }
@@ -194,9 +196,6 @@ export default function Thead<T>(props: TheadProps<T>) {
 					const curResizedObj = resized.find(
 						it => it.key === column.key
 					);
-					if (!curResizedObj) {
-						return null;
-					}
 					return (
 						<HCol
 							{...props}

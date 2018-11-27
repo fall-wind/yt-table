@@ -274,9 +274,9 @@ function genResizeWithSiblingCell<T>({
 	currentlyResizing: CurrentlyResizingProps;
 	newWidth: number;
 	resized: ResizerData[];
-	pColumn: ColumnProps<T>;
+	pColumn?: ColumnProps<T>;
 }) {
-	const pChildren = pColumn.children || [];
+	const pChildren = pColumn && pColumn.children || [];
 	if (pChildren.length === 0) {
 		return;
 	}
@@ -318,7 +318,7 @@ interface GenResizeParamsInter<T> {
 	currentlyResizing: CurrentlyResizingProps;
 	newWidth: number;
 	resized: ResizerData[];
-	pColumn: ColumnProps<T>;
+	pColumn?: ColumnProps<T>;
 	column: ColumnProps<T>;
 }
 
