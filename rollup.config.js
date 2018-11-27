@@ -9,7 +9,8 @@ import eslint from 'rollup-plugin-eslint';
 const env = process.env.NODE_ENV;
 
 const config = {
-	entry: './src/index.js',
+	// entry: './src/index.js',
+	entry: './src/index.tsx',
 	external: [
 		'react',
 		'prop-types',

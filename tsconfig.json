@@ -3,7 +3,7 @@
     "strictNullChecks": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,
-    "jsx": "preserve",
+    "jsx": "react",
     "noUnusedParameters": true,
     "noUnusedLocals": true,
     "noImplicitAny": true,
@@ -13,6 +13,10 @@
       "es7"
     ]
   },
+//   "include": [
+//     "**/*.ts",
+//     "**/*.tsx"
+//   ],
   "exclude": [
     "node_modules",
     "lib",
