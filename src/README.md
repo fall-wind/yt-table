@@ -12,3 +12,10 @@
 
 
 ## Couldn't find preset "./.babelrc.js"
+
+
+## 表格缩小之后小于容器值
+
+
+## interface
+interface文件内过多重复字段 可以提取相同的属性到公共接口中 使用接口继承

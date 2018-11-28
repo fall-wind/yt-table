@@ -179,11 +179,14 @@ function genResizeByFlatCol({
 	});
 }
 
-function pxAdd(a, b) {
+function pxAdd(a: any, b: any) {
 	return getNumWidth(a) + getNumWidth(b);
 }
 
-function genResizeFromCellGroup({ resize, averVal }) {
+function genResizeFromCellGroup({ resize, averVal }: {
+    resize: ResizerData
+    averVal: number
+}) {
 	const { value, maxWidth, minWidth, width } = resize;
 	let usedKey = '';
 
@@ -205,7 +208,7 @@ function genResizeFromCellGroup({ resize, averVal }) {
 	//         value: genWidthVal(calcVal),
 	//     };
 	// }
-	const calcVal = pxAdd(resize[usedKey] || MIN_WIDTH, averVal);
+	const calcVal = pxAdd((resize as any)[usedKey] || MIN_WIDTH, averVal);
 	if (calcVal > MIN_WIDTH) {
 		return {
 			...resize,
@@ -235,7 +238,7 @@ function genResizeByNestCol<T>({
 }) {
 	const children = column.children;
 	function checkIsChildResizeCb(item: ResizerData) {
-		return children.find(child => item.key === child.key);
+		return children && children.find(child => item.key === child.key);
 	}
 	const subResized = resized.filter(checkIsChildResizeCb);
 	const subResizedLen = subResized.length;
@@ -276,7 +279,7 @@ function genResizeWithSiblingCell<T>({
 	resized: ResizerData[];
 	pColumn?: ColumnProps<T>;
 }) {
-	const pChildren = pColumn && pColumn.children || [];
+	const pChildren = (pColumn && pColumn.children) || [];
 	if (pChildren.length === 0) {
 		return;
 	}
@@ -344,11 +347,11 @@ export function genResize<T>({
 	return genResizeByFlatCol({ currentlyResizing, newWidth, resized });
 }
 
-export function getNumWidth(width: string | number | any) {
+export function getNumWidth(width: string | number | any): number {
 	if (typeof width === 'string') {
 		let useStr = width;
 		if (width.indexOf('px') > -1) {
-			return (useStr = width.slice(0, -2));
+			useStr = width.slice(0, -2);
 		}
 		return Number(useStr);
 	} else if (typeof width === 'number') {
@@ -398,7 +401,7 @@ export function getRowMinWidth<T>({
 				curLen = getMinWidthByResized(cur);
 			}
 		}
-		return accAdd(pre, curLen);
+		return accAdd(pre, parseInt(curLen + '', 10));
 	}, initWidth);
 	return rowMinWidth;
 }
@@ -447,17 +450,22 @@ export function getCellWidthStyl({
 }
 
 export function getCellGroupStyl<T>({
-	siblingTitleArr,
+	siblingTitleArr = [],
 	resized,
 }: {
-	siblingTitleArr: ColumnProps<T>[];
+	siblingTitleArr?: ColumnProps<T>[];
 	resized: ResizerData[];
 }) {
 	const siblingResize = resized.filter(item =>
 		siblingTitleArr.find(it => it.key === item.key)
 	);
 	const childHasFlexStyleFlag = siblingResize.some(it => !!it.value);
-	let usedstyles = {};
+	let usedstyles: {
+		flex?: any;
+		minWidth?: any;
+		maxWidth?: any;
+		width?: any;
+	} = {};
 	if (childHasFlexStyleFlag) {
 		const width = siblingResize.reduce((pre, cur) => {
 			let useVal = getMinWidthByResized(cur);
@@ -513,7 +521,7 @@ export function getKey<T>(
  */
 export function getCanCheckAllNestKeys<T>({
 	dataSource,
-	childrenName,
+	childrenName = '',
 	rowKey,
 	getCheckboxProps,
 }: {
@@ -523,7 +531,9 @@ export function getCanCheckAllNestKeys<T>({
 	getCheckboxProps?: (record: T) => CheckboxProps;
 }) {
 	const filterCb = (it: T) =>
-		getCheckboxProps ? !(getCheckboxProps(it) || {}).disabled : true;
+		getCheckboxProps
+			? !(getCheckboxProps(it) && getCheckboxProps(it).disabled)
+			: true;
 	let arr: string[] = [];
 	const loop = (data: T[]) => {
 		data.forEach(item => {
@@ -541,39 +551,39 @@ export function getCanCheckAllNestKeys<T>({
 	return arr;
 }
 
-function checkColumnsHasWidth(column) {
-	return (
-		column.width ||
-		(column.styles && (column.styles.width || column.styles.maxWidth))
-	);
-}
+// function checkColumnsHasWidth(column) {
+// 	return (
+// 		column.width ||
+// 		(column.styles && (column.styles.width || column.styles.maxWidth))
+// 	);
+// }
 
-/**
- * 渲染成功之后微调样式 针对于多表头
- * @param {} rowDom
- * @param {*} config
- */
-export function adjustResized(rowDom, config = {}) {
-	const { flatColumns, columns, resized } = config;
-	if (columns.length === flatColumns.length) {
-		return null;
-	}
-	const childList = [...rowDom.childNodes].filter(
-		it => it.className.indexOf('yc-tbody-row-select-cell') === -1
-	);
-	return resized.map((it, index) => {
-		if (
-			!checkColumnsHasWidth(flatColumns[index]) &&
-			childList[index].clientWidth
-		) {
-			return {
-				...it,
-				value: parseInt(childList[index].clientWidth),
-			};
-		}
-		return it;
-	});
-}
+// /**
+//  * 渲染成功之后微调样式 针对于多表头
+//  * @param {} rowDom
+//  * @param {*} config
+//  */
+// export function adjustResized(rowDom, config = {}) {
+// 	const { flatColumns, columns, resized } = config;
+// 	if (columns.length === flatColumns.length) {
+// 		return null;
+// 	}
+// 	const childList = [...rowDom.childNodes].filter(
+// 		it => it.className.indexOf('yc-tbody-row-select-cell') === -1
+// 	);
+// 	return resized.map((it, index) => {
+// 		if (
+// 			!checkColumnsHasWidth(flatColumns[index]) &&
+// 			childList[index].clientWidth
+// 		) {
+// 			return {
+// 				...it,
+// 				value: parseInt(childList[index].clientWidth),
+// 			};
+// 		}
+// 		return it;
+// 	});
+// }
 
 /**
  * @param {*} arr
